@@ -1,8 +1,8 @@
 import os
 
-tarefas = {}
-tarefas_finalizadas = {}
-tarefas_excluidas = {}
+tarefas = []
+tarefas_finalizadas = []
+tarefas_excluidas = []
 
 def menu():
 
@@ -27,23 +27,22 @@ def pausar_tela():
 
 def adicionar_tarefa():
 
-    tipo_atividade = input("Informe o tipo de atividade que deseja adicionar: ")
-    atividade = input("Digite a atividade: ")
-    tarefas.setdefault(tipo_atividade, atividade)
-    print("Adicionada com sucesso!")
+    atividade = input("Informe o tipo de atividade que deseja adicionar: ")
+    tarefas.append(atividade)
+    print("Tarefa Adicionada com sucesso!")
     pausar_tela()
     limpar_tela()
 
 def ver_tarefas():
-    for numero, tarefa in enumerate(tarefas):
-        print(f"{numero+1}. {tarefas[tarefa]}")
+    for indice, tarefa in enumerate(tarefas):
+        print(f"{indice+1}. {tarefa}")
     pausar_tela()
     limpar_tela()
 
 def concluir_tarefa():
     
     ver_tarefas()
-    atividade = input("Digite qual atividade deseja concluir: ")
+    atividade = input("\nDigite qual atividade deseja concluir: ")
     if atividade in tarefas:
         tarefas_finalizadas[atividade] = tarefas.pop(atividade)
     else:
@@ -53,8 +52,8 @@ def concluir_tarefa():
     limpar_tela()
 
 def tarefas_concluidas():
-    for numero, item in enumerate(tarefas_finalizadas):
-        print(f"{numero} . {tarefas_finalizadas[item]}")
+    for indice, tarefa in enumerate(tarefas):
+        print(f"{indice} . {tarefa}")
 
 
 def excluir_tarefa():
@@ -65,6 +64,11 @@ def excluir_tarefa():
     else:
         print("Tarefa não encontrada. Por favor, selecione uma atividade que esteja no dicionário.")
         
+    pausar_tela()
+    limpar_tela()
+
+def caso_fora():
+    print("Por favor, informe um valor no intervalor selecionado.")
     pausar_tela()
     limpar_tela()
 
@@ -90,8 +94,11 @@ while True:
                 pausar_tela()
                 limpar_tela()
                 break
-    except TypeError:
-        print("Informe o tipo correto.")
+            case _:
+                caso_fora()
+            
+    except Exception as e:
+        print("Erro:", e)
         pausar_tela()
         limpar_tela()
         
